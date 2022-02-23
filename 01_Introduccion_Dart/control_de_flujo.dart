@@ -51,3 +51,19 @@ void main3(){
     print("Iteracion $i");
   }
 }
+
+//While/Do Loop
+void main4(){
+  int maxN = 10;
+  int index = 0;
+
+  while(index < maxN){
+    print("Imprimiendo indice $index");
+    index++;
+  }
+
+  do {
+     print("Imprimiendo indice $index");
+     index++;
+  } while (index < maxN);
+}
