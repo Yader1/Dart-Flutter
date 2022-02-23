@@ -20,3 +20,27 @@ void main(){
   //if de manera simplificada
   String resultados = v1 ? "Si es verdadero" : "Lo contrario";
 }
+
+//Switch
+void main2(){
+  var dia = 2;
+
+  switch(dia){
+    case 1:
+      print("Lunes");
+      break;
+
+    case 2:
+      print("Martes");
+      break;
+
+    default:
+      print("Dia no encontrado");
+      /**
+       * Una manera correcta de lanzar excepciones 
+       * en Dart es utilizando la sentencia throw
+       */
+      throw("Dia no encontrado");
+      break;
+  }
+}
