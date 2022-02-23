@@ -3,6 +3,7 @@ void main(){
   saludo("Yader");
   saludo3("Onell", "Mejia", 21);
   saludo4(nombre:"Yader");
+  print(factoria(4).toString());
 }
 
 //Funciones
@@ -38,4 +39,14 @@ void saludo4({String nombre = "Anonymous", String apellidos = ""}){
   }
 
   print(saludo4.toString());
+}
+
+//Funciones recursivas
+num factoria(num n){
+  //Indicamos el punto de ruptura
+  if(n == 1){
+    return 1;
+  }else{
+    return n * factoria(n-1);
+  }
 }
