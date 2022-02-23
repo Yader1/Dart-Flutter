@@ -44,3 +44,10 @@ void main2(){
       break;
   }
 }
+
+//For Loop
+void main3(){
+  for(int i = 0; i < 10; i++){
+    print("Iteracion $i");
+  }
+}
