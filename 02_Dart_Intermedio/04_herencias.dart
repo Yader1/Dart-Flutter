@@ -3,6 +3,9 @@ class Vehiculo{
   String modelo = "";
   String marca = "";
 
+  //Herencia de Costructor
+  Vehiculo(this.modelo, this.marca);
+
   void MostrarVehiculo(){
     print("Marca: $marca, Modelo $modelo, color: $color");
   }
@@ -15,6 +18,8 @@ class Vehiculo{
 
 //Clases que van ha heredar
 class Camion extends Vehiculo{
+  //Cunado la clase padre tiene su costructor
+  Camion(String modelo, String marca) : super(modelo, marca);
   //Para sobreescribir el metodo se utliza @override
   @override
   void QueVehiculoSoy(){
@@ -23,23 +28,19 @@ class Camion extends Vehiculo{
 }
 
 class Auto extends Vehiculo{
-
+  Auto(String modelo, String marca) : super(modelo, marca);
 }
 
 void main(){
   //Instanciamos
-  var camion = new Camion();
+  var camion = new Camion("Volvo","Truck");
   camion.color = "Blanco";
-  camion.marca = "Truck";
-  camion.marca = "Volvo";
 
   camion.MostrarVehiculo();
   camion.QueVehiculoSoy();
 
-  var auto = new Camion();
+  var auto = new Camion("Focus", "Ford");
   auto.color = "Azul";
-  auto.marca = "Focus";
-  auto.marca = "Ford";
 
   auto.MostrarVehiculo();
   camion.QueVehiculoSoy();
