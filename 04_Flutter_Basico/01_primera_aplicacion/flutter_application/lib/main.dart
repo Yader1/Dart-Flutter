@@ -17,6 +17,11 @@ void main(){
             ),
         )
       ),
+      //Agregar un button flotante
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: (){},
+        ),
     )
   );
 
