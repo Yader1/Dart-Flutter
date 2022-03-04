@@ -13,6 +13,12 @@ void main() {
  * 2. Stateful los cuales contiene datos
  */
 class MyApp extends StatelessWidget{
+  //Variables que serviran para cambiar el icono y texto
+  final double iconSize = 40.0;
+  final TextStyle textStyle = TextStyle(
+    color: Colors.grey,
+    fontSize: 30.0
+  );
   
   @override
   Widget build(BuildContext context){
@@ -26,29 +32,48 @@ class MyApp extends StatelessWidget{
       body: Container(
         //Hacemos columnas que funcionan como tipo listas
         child: Column(
-          crossAxisAlignment : CrossAxisAlignment.stretch,
+          crossAxisAlignment : CrossAxisAlignment.stretch, //Usar el ancho completo
           children: <Widget>[
-            //Creamos una tarjeta que contendra lo que se mostrara
-            Card(
-              child: Container(
-                padding: EdgeInsets.all(20.0),
-                 child: Column(
-                 children: <Widget>[
-                  Text("I love Flutter",
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 30.0),
-                  ),
-                  Icon(Icons.favorite,
-                  color: Colors.redAccent,
-                  size: 40.0)
-                ],
-              ),
-              )
+            //Llamamos nuestro widget
+            MyCard(title: Text("I love Flutter", style: textStyle,),
+                      icon: Icon( Icons.favorite, color: Colors.redAccent,
+                        size: iconSize,),
+                    ),
+            MyCard(title: Text("I like this video", style: textStyle,),
+                    icon: Icon( Icons.thumb_up, color: Colors.blueAccent,
+                    size: iconSize,),
+            ),
+            MyCard(title: Text("Next video", style: textStyle,),
+                    icon: Icon( Icons.queue_play_next, color: Colors.blueGrey,
+                    size: iconSize,),
             )
-          ],
+          ]
         ),
       ),
     );
   }
+}
+
+//Creamos un widget reutilizable
+class MyCard extends StatelessWidget{
+  final Widget title;
+  final Widget icon;
+
+  MyCard({required this.title, required this.icon});
+
+  @override
+  Widget build(BuildContext context){
+    //Creamos una tarjeta que contendra lo que se mostrara
+    return Card(
+      child: Container(
+        padding: EdgeInsets.all(20.0),
+          child: Column(
+          children: <Widget>[
+            this.title, 
+            this.icon
+        ],
+      ),
+      )
+    );
+  }  
 }
