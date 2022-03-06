@@ -8,6 +8,17 @@ class MyButton extends StatefulWidget{
 
 //Creamos una clase para manejar el estado del widget
 class _MyButtonState extends State<MyButton>{
+  String flutterText = "";
+  int index = 0;
+  List<String> collections = ['Flutter', 'es', 'genial'];
+
+  void onPressButton(){
+    //El setState sirve para rerendecisar 
+    setState(() {
+      flutterText = collections[index];
+      index = index < 2 ? index +1 : 0;
+    });
+  }
   
   @override
   Widget build(BuildContext context){
@@ -20,8 +31,9 @@ class _MyButtonState extends State<MyButton>{
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-          Text("Prueva", style: TextStyle(fontSize: 20.0)),
-          RaisedButton(child: Text("Actualizar"), onPressed: (){},)
+          Text(flutterText, style: TextStyle(fontSize: 20.0)),
+          Padding(padding: EdgeInsets.all(10.0)),
+          RaisedButton(child: Text("Actualizar", style: TextStyle(color: Colors.white),), color: Colors.blueAccent ,onPressed: onPressButton,)
         ],)
       )
     ),);
