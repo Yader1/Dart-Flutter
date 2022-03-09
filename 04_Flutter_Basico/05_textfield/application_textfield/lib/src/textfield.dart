@@ -7,10 +7,12 @@ class MyTextField extends StatefulWidget {
 
 class _MyTextField extends State<MyTextField> {
   String inputText = "";
+  final TextEditingController controller = TextEditingController(); //lo usaremos para limpiar el edit
 
   void onSubmitted(String value){
     setState(() {
       inputText = inputText + "\n" + value;
+      controller.text = ""; //Dejamos el editext vacio
     });
   }
 
@@ -27,6 +29,7 @@ class _MyTextField extends State<MyTextField> {
             TextField(
               decoration: InputDecoration(hintText: "Ingrese el texto aqui..."),
               onSubmitted: onSubmitted,
+              controller: controller, //Limpiar el controlador
             ),
             Text(inputText)
           ],
