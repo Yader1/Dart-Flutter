@@ -4,7 +4,7 @@ import 'package:application_textfield/src/textfield.dart';
 void main() {
   runApp(
     MaterialApp(
-      home: TextField()
+      home: MyTextField()
     )
   );
   
