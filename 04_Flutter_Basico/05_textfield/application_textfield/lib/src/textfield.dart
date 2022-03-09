@@ -6,6 +6,14 @@ class MyTextField extends StatefulWidget {
 }
 
 class _MyTextField extends State<MyTextField> {
+  String inputText = "";
+
+  void onSubmitted(String value){
+    setState(() {
+      inputText = inputText + "\n" + value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,11 +22,13 @@ class _MyTextField extends State<MyTextField> {
       ),
       body: Container(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             TextField(
               decoration: InputDecoration(hintText: "Ingrese el texto aqui..."),
-              onSubmitted: (String value) {print(value);},
-            )
+              onSubmitted: onSubmitted,
+            ),
+            Text(inputText)
           ],
         ),
       ),
