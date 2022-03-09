@@ -13,14 +13,15 @@ enum DialogAction{
 }
 
 class _MyDialog extends State<MyDialog> {
+  String inputText = "";
 
   void alertResult(DialogAction action){
     print("Seleccionaste $action");
   }
   
-  void showAlert(){
+  void showAlert(String value){
     AlertDialog dialog = AlertDialog(
-      content: Text("Hola"),
+      content: Text(value),
       //Buttones
       actions: <Widget>[
         FlatButton(onPressed: (){alertResult(DialogAction.yes);}, child: Text("Si")),
@@ -29,6 +30,12 @@ class _MyDialog extends State<MyDialog> {
     );
 
     showDialog(context: context, builder: (BuildContext context){ return dialog; });
+  }
+
+  void onChanged(String value){
+    setState(() {
+      inputText = value;
+    });
   }
 
   @override
@@ -42,9 +49,10 @@ class _MyDialog extends State<MyDialog> {
           children: <Widget>[
             TextField(
               decoration: InputDecoration(hintText: "Ingrese el texto aqui..."),
+              onChanged: onChanged,
             ),
             Padding(padding: EdgeInsets.all(10.0)),
-            RaisedButton(child: Text("Visualizar", style: TextStyle(color: Colors.white),), color: Colors.blueAccent ,onPressed: showAlert,)
+            RaisedButton(child: Text("Visualizar", style: TextStyle(color: Colors.white),), color: Colors.blueAccent ,onPressed: (){ showAlert(inputText); },)
           ],
         ),
       ),
