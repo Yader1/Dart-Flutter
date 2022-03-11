@@ -1,0 +1,6 @@
+Visual studio code:
+
+	1. File
+	2. Preferences -> User Snippets
+	3. Seleccionamos el lenguaje 
+	4. Copiamos y pegamos lo del archivo dart
