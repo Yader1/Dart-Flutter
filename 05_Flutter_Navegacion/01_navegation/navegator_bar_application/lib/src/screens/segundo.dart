@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 
 
-class Segunda extends StatefulWidget{
-  _segunda createState() => _segunda();
-}
+class Segunda extends StatelessWidget{
+  //Variables usada para recibir datos
+  String titulo = "";
+  
+  Segunda(String titulo){
+    this.titulo = titulo;
+  }
 
-class _segunda extends State<Segunda>{
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title:Text("Segunda pantalla")),
+    return Scaffold(  //Titulo pasado por datos
+      appBar: AppBar(title:Text(titulo)),
       body: Center(
       child: RaisedButton(
         child: Text("Ir atras"),

@@ -19,7 +19,7 @@ class _app extends State<App>{
             //Para navegar a otra pantalla hacemos...
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => Segunda())
+              MaterialPageRoute(builder: (context) => Segunda("Hola"))
             );
           },
         )
