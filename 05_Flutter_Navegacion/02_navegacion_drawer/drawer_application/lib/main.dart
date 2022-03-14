@@ -1,0 +1,10 @@
+import 'package:drawer_application/src/home.dart';
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(
+    MaterialApp(
+      home: Home()
+    )
+  );
+}
