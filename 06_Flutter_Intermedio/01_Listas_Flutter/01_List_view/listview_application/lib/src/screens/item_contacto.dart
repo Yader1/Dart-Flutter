@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:listview_application/src/model/contact_model.dart';
 
 class ContactItem extends StatelessWidget {
+
+final ContactModel contact;
+ContactItem({required this.contact});
+
  @override
  Widget build(BuildContext context) {
   return ListTile(
-    leading: CircleAvatar(child: Text("Y"),),
-    title: Text("Yader Mejia"),
-    subtitle: Text("yadermejiac123@gmail.com"),
+    leading: CircleAvatar(child: Text(contact.name[0]),),
+    title: Text(contact.name),
+    subtitle: Text(contact.email),
  );
  }
 }
