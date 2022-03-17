@@ -11,12 +11,20 @@ class  InfiniteListState extends State <InfiniteList> {
   final saved = <WordPair>[];
 
   ListTile buildRow(WordPair pair){
+    final bool alreadySaved = saved.contains(pair);
     return ListTile(
-         trailing: Icon(Icons.favorite),
+         trailing: Icon(
+           alreadySaved ? //Si no esta guardado
+           Icons.favorite : Icons.favorite_border, color: Colors.redAccent,
+           ),
          title: Text(pair.asPascalCase),
          onTap: (){
            setState(() {
-             saved.add(pair);
+             if(alreadySaved){
+                saved.remove(pair);
+             }else{
+                saved.add(pair);
+             }
            });
          }
        );
