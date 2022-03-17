@@ -15,7 +15,7 @@ class  InfiniteListState extends State <InfiniteList> {
     return ListTile(
          trailing: Icon(
            alreadySaved ? //Si no esta guardado
-           Icons.favorite : Icons.favorite_border, color: Colors.redAccent,
+           Icons.favorite : Icons.favorite_border, color: Colors.blueAccent,
            ),
          title: Text(pair.asPascalCase),
          onTap: (){
