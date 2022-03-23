@@ -13,7 +13,7 @@ class _LoginState extends State<Login> {
        child: Column(children: <Widget>[
          emailField(),
          passwordField(),
-         submitField()
+         //submitField()
        ]),
       ),
    );
@@ -21,6 +21,7 @@ class _LoginState extends State<Login> {
 
   Widget emailField(){
     return TextFormField(
+      keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
         labelText: 'Email',
         hintText: 'example@email.com'
@@ -29,10 +30,17 @@ class _LoginState extends State<Login> {
   }
 
   Widget passwordField(){
-    
+    return TextFormField(
+      obscureText: true, //Ocultar contraseña
+      keyboardType: TextInputType.visiblePassword,
+      decoration: InputDecoration(
+        labelText: 'Password',
+        hintText: 'password'
+      ),
+    );
   }
 
-  Widget submitField(){
+  //Widget submitField(){
     
-  }
+ // }
 }
