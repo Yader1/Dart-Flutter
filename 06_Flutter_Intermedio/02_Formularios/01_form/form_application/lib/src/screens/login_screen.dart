@@ -13,7 +13,7 @@ class _LoginState extends State<Login> {
        child: Column(children: <Widget>[
          emailField(),
          passwordField(),
-         //submitField()
+         submitField()
        ]),
       ),
    );
@@ -40,7 +40,10 @@ class _LoginState extends State<Login> {
     );
   }
 
-  //Widget submitField(){
-    
- // }
+  Widget submitField(){
+    return RaisedButton(
+      child: Text('Enviar'),
+      onPressed: () {}
+    );
+  }
 }
