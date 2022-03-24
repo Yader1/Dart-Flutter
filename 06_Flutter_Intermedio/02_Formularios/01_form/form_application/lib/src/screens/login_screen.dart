@@ -13,6 +13,7 @@ class _LoginState extends State<Login> {
        child: Column(children: <Widget>[
          emailField(),
          passwordField(),
+         Container(margin: EdgeInsets.only(top: 25.0)),
          submitField()
        ]),
       ),
