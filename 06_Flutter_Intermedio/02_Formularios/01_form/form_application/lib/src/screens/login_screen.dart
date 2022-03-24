@@ -5,11 +5,14 @@ class Login extends StatefulWidget {
   _LoginState createState() => new _LoginState();
  }
 class _LoginState extends State<Login> {
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
    return new Container(
      margin: EdgeInsets.all(20.0),
      child: Form(
+       key: formKey,
        child: Column(children: <Widget>[
          emailField(),
          passwordField(),
