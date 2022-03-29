@@ -5,8 +5,8 @@ class Login extends StatefulWidget {
   _LoginState createState() => new _LoginState();
  }
 class _LoginState extends State<Login> {
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
+ final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+ 
   @override
   Widget build(BuildContext context) {
    return new Container(
@@ -17,8 +17,8 @@ class _LoginState extends State<Login> {
          emailField(),
          passwordField(),
          Container(margin: EdgeInsets.only(top: 25.0)),
-         submitField()
-       ]),
+         submitField(),
+       ],),
       ),
    );
   }
@@ -30,6 +30,14 @@ class _LoginState extends State<Login> {
         labelText: 'Email',
         hintText: 'example@email.com'
       ),
+      validator: (value){
+        if(value != null && !value.contains('@')){
+          return "Email invalido";
+        } 
+      },
+      onSaved: (String? value){
+        
+      },
     );
   }
 
@@ -41,13 +49,25 @@ class _LoginState extends State<Login> {
         labelText: 'Password',
         hintText: 'password'
       ),
+      validator: (value) {
+        if(value != null && value.length < 6){
+           return "Contraseña invalido";
+        }
+      },
+       onSaved: (String? value){
+        
+      },
     );
   }
 
   Widget submitField(){
     return RaisedButton(
       child: Text('Enviar'),
-      onPressed: () {}
+      onPressed:(){
+        if(formKey.currentState.validate()){
+          formKey.currentState.save();
+        }  
+      }
     );
   }
 }
