@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:form_application/src/mixins/validacio_mixins.dart';
 
 class Login extends StatefulWidget {
   @override
   _LoginState createState() => new _LoginState();
  }
-class _LoginState extends State<Login> {
+class _LoginState extends State<Login> with validationMixins{
  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
  
   @override
@@ -30,13 +31,8 @@ class _LoginState extends State<Login> {
         labelText: 'Email',
         hintText: 'example@email.com'
       ),
-      validator: (value){
-        if(value != null && !value.contains('@')){
-          return "Email invalido";
-        } 
-      },
+      validator: validateEmail,
       onSaved: (String? value){
-        
       },
     );
   }
@@ -49,11 +45,7 @@ class _LoginState extends State<Login> {
         labelText: 'Password',
         hintText: 'password'
       ),
-      validator: (value) {
-        if(value != null && value.length < 6){
-           return "Contraseña invalido";
-        }
-      },
+      validator: validatePassword,
        onSaved: (String? value){
         
       },
