@@ -4,6 +4,7 @@ void main() {
   final orden = Orden('Tacos');
   final controller = StreamController();
   controller.sink.add(orden);
+  controller.stream.map((orden) => orden.type);
 }
 
 class Orden{
