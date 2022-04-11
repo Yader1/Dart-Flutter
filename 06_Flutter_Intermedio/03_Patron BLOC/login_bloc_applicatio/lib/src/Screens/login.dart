@@ -6,14 +6,15 @@ class LoginScreen extends StatelessWidget {
   return new Container(
     margin: EdgeInsets.all(20.0),
     child: Column(children: <Widget>[
-      emailField(),
-      passwordField(),
-      Container(margin: EdgeInsets.only(top: 25.0)),
-      submitField()
+     // emailField(),
+     // passwordField(),
+     // Container(margin: EdgeInsets.only(top: 25.0)),
+     // submitField()
     ],)
  );
  }
 
+/*
  Widget emailField(){
 
  }
@@ -25,4 +26,6 @@ class LoginScreen extends StatelessWidget {
  Widget submitField(){
 
  }
+
+ */
 }
