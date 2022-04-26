@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:login_bloc_applicatio/src/bloc/bloc.dart';
 
 class LoginScreen extends StatelessWidget {
-  final bloc = Bloc();
 
  @override
  Widget build(BuildContext context) {
