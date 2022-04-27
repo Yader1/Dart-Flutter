@@ -17,4 +17,5 @@ class Bloc with Validators{
   }
 }
 
+//Clase Golbal
 final bloc = Bloc();
