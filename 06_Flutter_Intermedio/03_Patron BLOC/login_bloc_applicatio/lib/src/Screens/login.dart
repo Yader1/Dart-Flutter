@@ -25,9 +25,9 @@ class LoginScreen extends StatelessWidget {
         decoration: InputDecoration(
           hintText: 'you@email.com',
           labelText: 'Email',
-          errorText: snapshot.error
+        // errorText: snapshot.error.toString() //Revisar e investigar
         ),
-        onChanged: (value) => bloc.changeEmail,
+        onChanged: bloc.changeEmail,
       );
     }
    );
@@ -41,8 +41,9 @@ class LoginScreen extends StatelessWidget {
       decoration: InputDecoration(
         hintText: 'Contraseña',
         labelText: 'Contraseña',
-        errorText: snapshot.error),
-       onChanged: (value) => bloc.changePassword,
+       // errorText: snapshot.error.toString() //Revisar e investigar
+        ),
+       onChanged: bloc.changePassword,
       );
     }
    );
