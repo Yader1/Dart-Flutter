@@ -8,8 +8,7 @@ void main() {
       //Dejamos definido el tema de la aplicacion
       theme: ThemeData(
         textTheme: TextTheme(
-          bodyText1: TextStyle(color: Colors.black45),
-           
+          bodyText1: TextStyle(color: Colors.black54), 
         ),
       )
     )
