@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Welcome extends StatefulWidget {
+  //Definiendo identificador de la Ruta, como es la principal no tiene valor
+  static const String routeName = '';
+
   @override
   _WelcomeState createState() => new _WelcomeState();
  }
@@ -51,7 +54,7 @@ class _WelcomeState extends State<Welcome> {
           ),
           SizedBox(height: 45.0,),
           //Llamamos a nuestro button y enviamos sus especificaciones
-          getButton(Colors.lightBlueAccent, "Lon in", (){}),
+          getButton(Colors.lightBlueAccent, "Lon in", (){ Navigator.pushNamed(context, '/login'); }),
           getButton(Colors.blueAccent, "Registrarse", (){})
         ]
       )
