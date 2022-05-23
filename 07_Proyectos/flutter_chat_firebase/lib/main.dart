@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_firebase/screens/login_screen.dart';
-import 'package:flutter_chat_firebase/screens/welcome_screen.dart';
+import 'package:flutter_chat_firebase/src/screens/login_screen.dart';
+import 'package:flutter_chat_firebase/src/screens/welcome_screen.dart';
 
 void main() {
   runApp(
