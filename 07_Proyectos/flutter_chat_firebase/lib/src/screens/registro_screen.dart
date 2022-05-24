@@ -9,6 +9,10 @@ class Registro extends StatefulWidget {
   _RegistroState createState() => new _RegistroState();
  }
 class _RegistroState extends State<Registro> {
+  //Variables internas, se hace con guio bajo
+  late String _email;
+  late String _password;
+
   @override
   Widget build(BuildContext context) {
    return Scaffold(
@@ -23,9 +27,9 @@ class _RegistroState extends State<Registro> {
           //Llamamos nuestro widget del titulo de la aplicacion.
           AppIcon(),
           SizedBox(height: 48.0,),
-          AppTextField(inputText: "Ingrece su correo"),
+          AppTextField(inputText: "Ingrece su correo", obscureText: false, onChanged: (value){ _email = value; },),
           SizedBox(height: 8.0,),
-          AppTextField(inputText: "Ingresar contraseña"),
+          AppTextField(inputText: "Ingresar contraseña", obscureText: true, onChanged: (value){ _password = value; },),
           SizedBox(height: 23.0,),
           //Llamamos a nuestro button y enviamos sus especificaciones
           AppButton(color: Colors.blueAccent, onPressed: (){ }, name: "Registrarse")

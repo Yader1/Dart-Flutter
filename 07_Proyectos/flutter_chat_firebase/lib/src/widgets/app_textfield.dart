@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 
 class AppTextField extends StatelessWidget {
   final String inputText;
-
-  const AppTextField({required this.inputText});
+  //Variable que recibe los datos que el usuario envia
+  final ValueChanged<String> onChanged;
+  //Para passwordField
+  final bool obscureText;
+  const AppTextField({required this.inputText, required this.onChanged, required this.obscureText});
 
  @override
  Widget build(BuildContext context) {
@@ -21,7 +24,12 @@ class AppTextField extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(32.0)),
           borderSide: BorderSide(color: Colors.lightBlueAccent, width: 2),
         ),
-      )
+      ),
+      onChanged: onChanged,
+      //Poner los textos de campo en el centro
+      textAlign: TextAlign.center,
+      //Para password, dejarlo oculto la contraseña
+      obscureText: obscureText == null ? false : obscureText,
     );
  }
 }
