@@ -26,7 +26,7 @@ class _WelcomeState extends State<Welcome> {
           SizedBox(height: 45.0,),
           //Llamamos a nuestro button y enviamos sus especificaciones
           AppButton(color: Colors.lightBlueAccent, onPressed: (){ Navigator.pushNamed(context, '/login'); }, name: "Lon in"),
-          AppButton(color: Colors.blueAccent, onPressed: (){}, name:"Registrarse"),
+          AppButton(color: Colors.blueAccent, onPressed: (){ Navigator.pushNamed(context, '/registro'); }, name:"Registrarse"),
         ]
       )
     )

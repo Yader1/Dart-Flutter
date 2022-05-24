@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_firebase/src/screens/login_screen.dart';
+import 'package:flutter_chat_firebase/src/screens/registro_screen.dart';
 import 'package:flutter_chat_firebase/src/screens/welcome_screen.dart';
 
 void main() {
@@ -17,7 +18,8 @@ void main() {
       //Ruta de navegacion
       routes: <String, WidgetBuilder>{
         login.routeName: (BuildContext context) => login(),
-        Welcome.routeName: (BuildContext context) => Welcome()
+        Welcome.routeName: (BuildContext context) => Welcome(),
+        Registro.routeName: (BuildContext context) => Registro(),
       }
     )
   );

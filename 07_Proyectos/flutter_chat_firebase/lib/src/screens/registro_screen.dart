@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_firebase/src/widgets/app_button.dart';
+import 'package:flutter_chat_firebase/src/widgets/app_icon.dart';
 import 'package:flutter_chat_firebase/src/widgets/app_textfield.dart';
 
-import '../widgets/app_icon.dart';
-
-class login extends StatefulWidget {
-  //Definiendo identificador de la Ruta
-  static const String routeName = '/login';
+class Registro extends StatefulWidget {
+  static const String routeName = '/registro';
   @override
-  _loginState createState() => new _loginState();
+  _RegistroState createState() => new _RegistroState();
  }
-class _loginState extends State<login> {
-
+class _RegistroState extends State<Registro> {
   @override
   Widget build(BuildContext context) {
    return Scaffold(
@@ -31,7 +28,7 @@ class _loginState extends State<login> {
           AppTextField(inputText: "Ingresar contraseña"),
           SizedBox(height: 23.0,),
           //Llamamos a nuestro button y enviamos sus especificaciones
-          AppButton(color: Colors.blueAccent, onPressed: (){ }, name: "Lon in")
+          AppButton(color: Colors.blueAccent, onPressed: (){ }, name: "Registrarse")
         ]
       )
     )
