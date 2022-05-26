@@ -2,13 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_firebase/src/widgets/app_button.dart';
 import 'package:flutter_chat_firebase/src/widgets/app_icon.dart';
 import 'package:flutter_chat_firebase/src/widgets/app_textfield.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Registro extends StatefulWidget {
   static const String routeName = '/registro';
   @override
   _RegistroState createState() => new _RegistroState();
  }
+ 
 class _RegistroState extends State<Registro> {
+
+  //Instanciamos el servicio Auth
+  final auth = FirebaseAuth.instance;
   //Variables internas, se hace con guio bajo
   late String _email;
   late String _password;
@@ -32,7 +37,18 @@ class _RegistroState extends State<Registro> {
           AppTextField(inputText: "Ingresar contraseña", obscureText: true, onChanged: (value){ _password = value; },),
           SizedBox(height: 23.0,),
           //Llamamos a nuestro button y enviamos sus especificaciones
-          AppButton(color: Colors.blueAccent, onPressed: (){ }, name: "Registrarse")
+          AppButton(color: Colors.blueAccent, onPressed: (){
+            try{
+                //Enviamos el email y el password a firebase Auth
+              var newUser = auth.createUserWithEmailAndPassword(email: _email, password: _password);
+              //Verificamos que no sea nulo y si es correcto lo re dericcionamos
+              if(newUser != null){
+                Navigator.pushNamed(context, '/chat');
+              }  
+            }catch(e){
+              print(e);
+            }    
+          }, name: "Registrarse")
         ]
       )
     )
