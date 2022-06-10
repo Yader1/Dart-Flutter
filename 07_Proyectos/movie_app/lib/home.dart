@@ -1,10 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/common/HttpHandler.dart';
 
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => new _HomeState();
  }
 class _HomeState extends State<Home> {
+
+  //Llamamos metodos de API
+  @override
+  void initState(){
+    super.initState();
+    _loadJson();
+  }
+
+  _loadJson() async{
+    String data = await HttpHandler().fechMovie();
+    print(data);
+  }
+
   @override
   Widget build(BuildContext context) {
    return new Scaffold(
