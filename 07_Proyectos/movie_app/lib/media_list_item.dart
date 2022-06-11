@@ -36,6 +36,23 @@ class MediaListItem extends StatelessWidget {
                   height: 55.0
                 ),
               ) 
+            ),
+            //Titulo de las Peliculas
+            new Positioned(
+              left: 10.0,
+              bottom: 30.0,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  new Container(
+                    child: new Text(media.title,
+                    style: new TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white
+                    ),),
+                  )
+                ]
+              )
             )
           ],
         )
