@@ -40,7 +40,7 @@ class MediaListItem extends StatelessWidget {
             //Titulo de las Peliculas
             new Positioned(
               left: 10.0,
-              bottom: 30.0,
+              bottom: 10.0,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -50,6 +50,15 @@ class MediaListItem extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                       color: Colors.white
                     ),),
+                  ),
+                  new Container(
+                    padding: EdgeInsets.only(top: 4.0),
+                    child: new Text(media.getGenres(),
+                    style: new TextStyle(color: Colors.white),
+                    maxLines: 1,
+                    //Si supera del campo de texto se mostrara puntos suspencivos
+                    overflow: TextOverflow.ellipsis,
+                    )
                   )
                 ]
               )
