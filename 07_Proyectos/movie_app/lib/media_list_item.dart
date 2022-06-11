@@ -52,6 +52,7 @@ class MediaListItem extends StatelessWidget {
                     ),),
                   ),
                   new Container(
+                    width: 250.0,
                     padding: EdgeInsets.only(top: 4.0),
                     child: new Text(media.getGenres(),
                     style: new TextStyle(color: Colors.white),
@@ -59,6 +60,23 @@ class MediaListItem extends StatelessWidget {
                     //Si supera del campo de texto se mostrara puntos suspencivos
                     overflow: TextOverflow.ellipsis,
                     )
+                  )
+                ]
+              )
+            ),
+            //Mostrar las votaciones
+            new Positioned(
+              right: 5.0,
+              bottom: 10.0,
+              child: new Column(
+                children: <Widget>[
+                  //Apilamos widget uno de otros
+                  Row(
+                    children: <Widget>[
+                      new Text(media.voteAverage.toString()),
+                      new Container(width: 4.0,),
+                      new Icon(Icons.star, color: Colors.white, size: 16.0,)
+                    ]
                   )
                 ]
               )
