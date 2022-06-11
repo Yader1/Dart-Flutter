@@ -26,6 +26,14 @@ class Media{
     
   }
 
+  //Funcion que nos devuelve solo el año de una fecha
+  int getReleaseDateYear(){
+    if(releaseDate == null || releaseDate == "")
+      return 0;
+
+    return DateTime.parse(releaseDate).year;
+  }
+
   //Poblamos los datos, tomamos el json y lo convertimos en un obj
   Media.deserialize(Map json) :
     id = json["id"].toInt(),
