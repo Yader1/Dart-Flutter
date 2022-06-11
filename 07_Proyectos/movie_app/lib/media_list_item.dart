@@ -7,19 +7,40 @@ class MediaListItem extends StatelessWidget {
 
  @override
  Widget build(BuildContext context) {
+  // ignore: unnecessary_new
   return new Card(
   child: new Column(
     children: <Widget>[
-      new FadeInImage.assetNetwork(
-        placeholder: "assets/placeholder.jpg", 
-        image: media.getBackDropUrl(),
-        fit: BoxFit.cover,
-        width: double.infinity,
-        height: 200.0,
-        fadeInDuration: new Duration(milliseconds: 40),
+      Container(
+        // ignore: unnecessary_new
+        child: new Stack(
+          children: <Widget>[
+            new FadeInImage.assetNetwork(
+            placeholder: "assets/placeholder.jpg", 
+            image: media.getBackDropUrl(),
+            fit: BoxFit.cover,
+            width: double.infinity,
+            height: 200.0,
+            fadeInDuration: new Duration(milliseconds: 40),
+            ),
+            new Positioned(
+              left: 0.0,
+              bottom: 0.0,
+              right: 0.0,
+              child: new Container(
+                decoration: new BoxDecoration(
+                  //Definimos color de opacidad
+                  color: Colors.grey[900]?.withOpacity(0.5),
+                ),
+                constraints: new BoxConstraints.expand(
+                  height: 55.0
+                ),
+              ) 
+            )
+          ],
+        )
       )
     ],
-  ),
- );
+  ),);
  }
 }
