@@ -12,6 +12,7 @@ class Media{
 
   //Para obtener el poster de una pelicula
   String getPosterUrl() => getMediumPictureUrl(posterPath);
+  String getBackDropUrl() => getMediumPictureUrl(backdropPath);
 
   //Es un metodo de la familia factori de patron de diseño
   factory Media(Map jsonMap){
