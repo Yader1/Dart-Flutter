@@ -9,6 +9,8 @@ import 'package:movie_app/common/Constant.dart';
 //Importamos Media
 import 'package:movie_app/model/Media.dart';
 
+import 'package:movie_app/common/MediaProvider.dart';
+
 class HttpHandler{
   //Metodo de inicializacion
   static final _httpHandler = new HttpHandler();

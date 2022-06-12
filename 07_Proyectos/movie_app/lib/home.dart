@@ -62,9 +62,7 @@ class _HomeState extends State<Home> {
       )
      ),
      body: new PageView(
-       children: <Widget>[
-         new MediaList()
-       ]
+       children: _getMediaList()
      ),
 
      /*TODO: Butones de navegacion inferior revisar
@@ -101,5 +99,14 @@ class _HomeState extends State<Home> {
          mediaType = type;
       });
     }
+  }
+
+  List<Widget> _getMediaList(){
+    return (mediaType == MediaType.movie) ? <Widget>[
+      new MediaList(movieProvider)
+    ]:
+    <Widget>[
+      new MediaList(showProvider)
+    ];
   }
 }

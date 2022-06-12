@@ -1,26 +1,39 @@
 //Re renderizar lista 
 import 'package:flutter/material.dart';
-import 'package:movie_app/common/HttpHandler.dart';
 import 'package:movie_app/model/Media.dart';
 import 'package:movie_app/media_list_item.dart';
+import 'package:movie_app/common/MediaProvider.dart';
 
 class MediaList extends StatefulWidget {
+  late final MediaProvider provider;
+
+  MediaList(this.provider);
+
   @override
   _MediaListState createState() => new _MediaListState();
  }
 class _MediaListState extends State<MediaList> {
 
-  final List<Media> _media = [];
+  List<Media> _media = [];
   @override
   void initState() {
     super.initState();
     loadMovies();
   }
 
+  @override
+  void didUpdateWidget(MediaList oldWidget){
+    if(oldWidget.provider.runtimeType != widget.provider.runtimeType){
+      _media = [];
+      loadMovies();
+    }
+    super .didUpdateWidget(oldWidget);
+  }
+
   void loadMovies() async{ 
-    var movies = await HttpHandler().fechMovie();
+    var media = await widget.provider.fechMedia();
     setState(() {
-      _media.addAll(movies);
+      _media.addAll(media);
     });
   }
 
