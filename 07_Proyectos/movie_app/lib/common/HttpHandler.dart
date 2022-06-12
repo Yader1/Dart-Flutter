@@ -38,7 +38,7 @@ class HttpHandler{
 
     return getJson(uri).then(((data) =>
       //Accedemos a los datos segun la estructura del Json a mapiar
-      data['results'].map<Media>((item) => Media(item)).toList()
+      data['results'].map<Media>((item) => Media(item, MediaType.movie)).toList()
     ));
   }
 
@@ -52,7 +52,7 @@ class HttpHandler{
 
     return getJson(uri).then(((data) =>
       //Accedemos a los datos segun la estructura del Json a mapiar
-      data['results'].map<Media>((item) => Media(item)).toList()
+      data['results'].map<Media>((item) => Media(item, MediaType.show)).toList()
     ));
   }
 }

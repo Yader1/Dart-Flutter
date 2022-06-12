@@ -17,9 +17,9 @@ class Media{
   String getGenres() => getGenreValues(genreIds);
 
   //Es un metodo de la familia factori de patron de diseño
-  factory Media(Map jsonMap){
+  factory Media(Map jsonMap, MediaType mediaType){
     try{
-      return new Media.deserialize(jsonMap);
+      return new Media.deserialize(jsonMap, mediaType);
     }catch (ex){
       throw ex;
     }
@@ -35,13 +35,15 @@ class Media{
   }
 
   //Poblamos los datos, tomamos el json y lo convertimos en un obj
-  Media.deserialize(Map json) :
+  Media.deserialize(Map json, MediaType mediaType) :
     id = json["id"].toInt(),
     voteAverage = json["vote_average"]?.toDouble(),
     title = json["title"],
     posterPath = json["poster_path"] ?? "",
     backdropPath = json["backdrop_path"] ?? "",
     overview = json["overview"],
-    releaseDate = json["release_date"],
+    releaseDate = json[mediaType == MediaType.movie ? "release_date" : "first_air_date"],
     genreIds = json["genre_ids"].toList();
 }
+
+enum MediaType {movie, show}
