@@ -65,33 +65,33 @@ class _HomeState extends State<Home> {
        children: _getMediaList()
      ),
 
-     /*TODO: Butones de navegacion inferior revisar
+     /*TODO: Butones de navegacion inferior revisar */
      bottomNavigationBar: new BottomNavigationBar(
-      items: _getFooterItems(),
-     ), */
+      items: _getFooterItems()
+     ),
    );
   }
 
-  /*TODO: Revisar
+  /*TODO: Revisar */
   List<BottomNavigationBarItem> _getFooterItems(){
     return[
       BottomNavigationBarItem(
-        icon: new Icon(Icons.thumb_up),  
-        //title: new Text("Populares")
-      ),
-      
-      new BottomNavigationBarItem(
-        icon: new Icon(Icons.update),
-        //title: new Text("Proximamente")
-      ),
-      
-      new BottomNavigationBarItem(
-        icon: new Icon(Icons.star),
-        //title: Text("Mejor valorada")
-      )
+          icon: new Icon(Icons.thumb_up),
+          label: 'Populares',
+          backgroundColor: Colors.blue,
+        ),
+        BottomNavigationBarItem(
+          icon: new Icon(Icons.update),
+          label: 'Proximamente',
+          backgroundColor: Colors.red,
+        ),
+        BottomNavigationBarItem(
+          icon: new Icon(Icons.star),
+          label: 'Mejor valorada',
+          backgroundColor: Colors.green,
+        ),
     ]; 
   }
-  */
 
   void _changeMediaType(MediaType type){
     if(mediaType != type ){
