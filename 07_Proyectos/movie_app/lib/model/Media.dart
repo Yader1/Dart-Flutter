@@ -1,4 +1,5 @@
 import 'package:movie_app/common/Util.dart';
+import 'package:movie_app/common/MediaProvider.dart';
 //Definir las propiedades
 class Media{
   late int id;
@@ -45,5 +46,3 @@ class Media{
     releaseDate = json[mediaType == MediaType.movie ? "release_date" : "first_air_date"],
     genreIds = json["genre_ids"].toList();
 }
-
-enum MediaType {movie, show}

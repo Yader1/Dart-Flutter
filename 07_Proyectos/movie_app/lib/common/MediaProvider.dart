@@ -21,3 +21,5 @@ class ShowProvider extends MediaProvider{
     return _client.fechShow();
   }
 }
+
+enum MediaType {movie, show}
