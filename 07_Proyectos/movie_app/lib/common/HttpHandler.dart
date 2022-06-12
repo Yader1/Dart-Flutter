@@ -31,8 +31,8 @@ class HttpHandler{
   }
 
   //Llamada a los datos
-  Future<List<Media>> fechMovie(){
-    var uri = new Uri.http(_baseUrl, "3/movie/popular", {
+  Future<List<Media>> fechMovie({String category : "pululares"}) async{
+    var uri = new Uri.http(_baseUrl, "3/movie/$category", {
       'api_key' : API_KEY,
       'page' : "1",
       'language' : _lenguaje
@@ -45,8 +45,8 @@ class HttpHandler{
   }
 
   //Lamamos get TV
-  Future<List<Media>> fechShow(){
-    var uri = new Uri.http(_baseUrl, "3/tv/popular", {
+  Future<List<Media>> fechShow({String category : "pululares"}) async{
+    var uri = new Uri.http(_baseUrl, "3/tv/$category", {
       'api_key' : API_KEY,
       'page' : "1",
       'language' : _lenguaje

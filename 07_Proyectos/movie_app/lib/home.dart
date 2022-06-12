@@ -7,8 +7,21 @@ class Home extends StatefulWidget {
   _HomeState createState() => new _HomeState();
  }
 class _HomeState extends State<Home> {
+  @override
+  void initState(){
+    _pageController = new PageController();
+    super.initState();
+  }
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
   final MediaProvider movieProvider = new MovieProvider();
   final MediaProvider showProvider = new ShowProvider();
+  late PageController _pageController;
+  int _page = 0;
 
   MediaType mediaType = MediaType.movie;
   @override
@@ -62,19 +75,46 @@ class _HomeState extends State<Home> {
       )
      ),
      body: new PageView(
-       children: _getMediaList()
+       children: _getMediaList(),
+       //Determinamos que pagina va estar visible en nuestro pageView
+       controller: _pageController,
+       onPageChanged: (int index){
+        setState(() {
+          _page = index;
+        });
+       },
      ),
 
      /*TODO: Butones de navegacion inferior revisar */
      bottomNavigationBar: new BottomNavigationBar(
-      items: _getFooterItems()
+      items: _getFooterItems(),
+      onTap: _navigationTapped,
+      currentIndex: _page,
      ),
    );
   }
 
   /*TODO: Revisar */
   List<BottomNavigationBarItem> _getFooterItems(){
-    return[
+    return mediaType == MediaType.show ?
+    [
+      BottomNavigationBarItem(
+          icon: new Icon(Icons.thumb_up),
+          label: 'Populares',
+          backgroundColor: Colors.blue,
+        ),
+        BottomNavigationBarItem(
+          icon: new Icon(Icons.update),
+          label: 'En el aire',
+          backgroundColor: Colors.red,
+        ),
+        BottomNavigationBarItem(
+          icon: new Icon(Icons.star),
+          label: 'Mejor valorada',
+          backgroundColor: Colors.green,
+        ),
+    ]:
+    [
       BottomNavigationBarItem(
           icon: new Icon(Icons.thumb_up),
           label: 'Populares',
@@ -90,7 +130,7 @@ class _HomeState extends State<Home> {
           label: 'Mejor valorada',
           backgroundColor: Colors.green,
         ),
-    ]; 
+    ];
   }
 
   void _changeMediaType(MediaType type){
@@ -103,10 +143,18 @@ class _HomeState extends State<Home> {
 
   List<Widget> _getMediaList(){
     return (mediaType == MediaType.movie) ? <Widget>[
-      new MediaList(movieProvider)
+      new MediaList(movieProvider, "popular"),
+      new MediaList(movieProvider, "upcoming"),
+      new MediaList(movieProvider, "top_rated"),
     ]:
     <Widget>[
-      new MediaList(showProvider)
+      new MediaList(showProvider, "popular"),
+      new MediaList(showProvider, "on_the_air"),
+      new MediaList(showProvider, "top_rated"),
     ];
+  }
+
+  void _navigationTapped(int page){
+    _pageController.animateToPage(page, duration: const Duration(milliseconds: 300), curve: Curves.ease);
   }
 }

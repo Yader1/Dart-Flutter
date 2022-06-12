@@ -3,22 +3,22 @@ import 'package:movie_app/model/Media.dart';
 import 'package:movie_app/common/HttpHandler.dart';
 //Se utilizara para definir los proveedores
 abstract class MediaProvider {
-  Future<List<Media>> fechMedia();
+  Future<List<Media>> fechMedia(String category);
 }
 
 class MovieProvider extends MediaProvider{
   HttpHandler _client = HttpHandler.get();
   @override
-  Future<List<Media>> fechMedia() {
-    return _client.fechMovie();
+  Future<List<Media>> fechMedia(String category) {
+    return _client.fechMovie(category : category);
   }
 }
 
 class ShowProvider extends MediaProvider{
   HttpHandler _client = HttpHandler.get();
   @override
-  Future<List<Media>> fechMedia() {
-    return _client.fechShow();
+  Future<List<Media>> fechMedia(String category) {
+    return _client.fechShow(category : category);
   }
 }
 

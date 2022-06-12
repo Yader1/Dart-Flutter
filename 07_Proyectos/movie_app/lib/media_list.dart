@@ -6,8 +6,8 @@ import 'package:movie_app/common/MediaProvider.dart';
 
 class MediaList extends StatefulWidget {
   late final MediaProvider provider;
-
-  MediaList(this.provider);
+  late String category;
+  MediaList(this.provider, this.category);
 
   @override
   _MediaListState createState() => new _MediaListState();
@@ -31,7 +31,7 @@ class _MediaListState extends State<MediaList> {
   }
 
   void loadMovies() async{ 
-    var media = await widget.provider.fechMedia();
+    var media = await widget.provider.fechMedia(widget.category);
     setState(() {
       _media.addAll(media);
     });
