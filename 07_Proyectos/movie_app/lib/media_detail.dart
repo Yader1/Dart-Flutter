@@ -27,6 +27,26 @@ class MediaDetail extends StatelessWidget {
             color: Colors.black.withOpacity(0.5),
           ),
         ),
+        //Este widget nos permite hacer scroll
+        new SingleChildScrollView(
+          child: Container(
+            margin: const EdgeInsets.all(20.0),
+            child: new Column(
+              children: <Widget>[
+                new Container( 
+                  alignment: Alignment.center,
+                  child: new Container( width: 390.0, height: 390.0,),
+                  decoration: new BoxDecoration(
+                    borderRadius: new BorderRadius.circular(10.0),
+                    image: new DecorationImage(image: new NetworkImage(
+                      media.getPosterUrl()
+                    ))
+                  ),
+                ),
+              ]
+            )
+          )
+        ),
       ]
     ),
  );
