@@ -78,7 +78,20 @@ class MediaDetail extends StatelessWidget {
                       ),
                     ]
                   ),
-                )
+                ),
+                //Descripcion de peliculas
+                new Column(children: <Widget>[
+                  new Text(
+                    media.overview,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 4,
+                    style: new TextStyle(
+                            color: Colors.white,
+                            fontSize: 17.0,
+                            fontFamily: 'Arvo'
+                          )
+                  )
+                ],)
               ]
             )
           )
