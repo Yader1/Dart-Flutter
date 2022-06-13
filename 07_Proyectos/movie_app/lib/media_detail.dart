@@ -40,7 +40,15 @@ class MediaDetail extends StatelessWidget {
                     borderRadius: new BorderRadius.circular(10.0),
                     image: new DecorationImage(image: new NetworkImage(
                       media.getPosterUrl()
-                    ))
+                    ),),
+                    //Realizar el sombriado
+                    boxShadow: [
+                      new BoxShadow(
+                        color: Colors.black,
+                        blurRadius: 20.0,
+                        offset: new Offset(0.0, 10.0)
+                      )
+                    ]
                   ),
                 ),
               ]
