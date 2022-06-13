@@ -51,6 +51,26 @@ class MediaDetail extends StatelessWidget {
                     ]
                   ),
                 ),
+                SizedBox(height: 20.0,),
+                new Container(
+                  margin: const EdgeInsets.symmetric(vertical: 5.0),
+                  child: new Row(
+                    children: <Widget>[
+                      new Expanded(
+                        child: new Text(
+                          media.title,
+                          overflow: TextOverflow.fade,
+                          maxLines: 1,
+                          style: new TextStyle(
+                            color: Colors.white,
+                            fontSize: 30.0,
+                            fontFamily: 'Arvo'
+                          )
+                        )
+                      )
+                    ]
+                  ),
+                )
               ]
             )
           )
