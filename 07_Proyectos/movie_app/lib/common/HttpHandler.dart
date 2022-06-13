@@ -59,7 +59,7 @@ class HttpHandler{
   }
 
   //Llamada de los servicos de la api para los creditos
-  Future<List<Media>> fechCreditMovies(int mediaId) async{
+  Future<List<Cast>> fechCreditMovies(int mediaId) async{
     var uri = new Uri.http(_baseUrl, "3/movie/$mediaId/credits", {
       'api_key' : API_KEY,
       'page' : "1",
@@ -71,7 +71,7 @@ class HttpHandler{
       data['cast'].map<Cast>((item) => Cast(item, MediaType.movie)).toList()
     ));
   }
-  Future<List<Media>> fechCreditShow(int mediaId) async{
+  Future<List<Cast>> fechCreditShow(int mediaId) async{
     var uri = new Uri.http(_baseUrl, "3/tv/$mediaId/credits", {
       'api_key' : API_KEY,
       'page' : "1",
