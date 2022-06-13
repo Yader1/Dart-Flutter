@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_app/model/Media.dart';
 import 'package:movie_app/media_list_item.dart';
 import 'package:movie_app/common/MediaProvider.dart';
+import 'package:movie_app/media_detail.dart';
 
 class MediaList extends StatefulWidget {
   late final MediaProvider provider;
@@ -43,8 +44,16 @@ class _MediaListState extends State<MediaList> {
      child: new ListView.builder(
        itemCount: _media.length,
        itemBuilder: (BuildContext context, int index){
-             //Traemos una imagen por medio de una URL
-            return new MediaListItem(_media[index]);
+          //Traemos una imagen por medio de una URL
+        return new FlatButton(
+          padding: EdgeInsets.all(1),
+          onPressed: (){
+            Navigator.push(context, new MaterialPageRoute(builder: (context){
+              return new MediaDetail(_media[index]);
+            }));
+          }, 
+          child: MediaListItem(_media[index])
+        );
        }
      ),
     );
