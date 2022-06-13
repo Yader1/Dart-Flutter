@@ -49,7 +49,7 @@ class _MediaListState extends State<MediaList> {
           padding: EdgeInsets.all(1),
           onPressed: (){
             Navigator.push(context, new MaterialPageRoute(builder: (context){
-              return new MediaDetail(_media[index]);
+              return new MediaDetail(_media[index], widget.provider);
             }));
           }, 
           child: MediaListItem(_media[index])

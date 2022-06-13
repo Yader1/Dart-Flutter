@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/common/MediaProvider.dart';
 import 'package:movie_app/model/Media.dart';
+import 'package:movie_app/cats_scroller.dart';
 import 'dart:ui' as ui;
 
 class MediaDetail extends StatelessWidget {
   final Media media;
-  MediaDetail(this.media);
+  final MediaProvider provider;
+  MediaDetail(this.media, this.provider);
 
  @override
  Widget build(BuildContext context) {
@@ -91,9 +94,10 @@ class MediaDetail extends StatelessWidget {
                             fontFamily: 'Arvo'
                           )
                   )
-                ],)
+                ],),
+                CatsScroller(provider, media.id)
               ]
-            )
+            ),
           )
         ),
       ]
