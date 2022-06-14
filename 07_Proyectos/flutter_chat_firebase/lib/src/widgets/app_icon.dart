@@ -5,6 +5,7 @@ class AppIcon extends StatelessWidget {
  Widget build(BuildContext context) {
    //Propiedad para el titulo mas el icono a lado.
   return Row(
+    mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Image.asset('images/logo.png'),
         Text('Flutter Chat',

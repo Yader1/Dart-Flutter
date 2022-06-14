@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_chat_firebase/src/services/autentication.dart';
 import 'package:flutter_chat_firebase/src/widgets/app_button.dart';
 import 'package:flutter_chat_firebase/src/widgets/app_icon.dart';
 import 'package:flutter_chat_firebase/src/widgets/app_textfield.dart';
@@ -11,9 +12,6 @@ class Registro extends StatefulWidget {
  }
  
 class _RegistroState extends State<Registro> {
-
-  //Instanciamos el servicio Auth
-  final auth = FirebaseAuth.instance;
   //Variables internas, se hace con guio bajo
   late String _email;
   late String _password;
@@ -31,23 +29,19 @@ class _RegistroState extends State<Registro> {
         children: <Widget>[
           //Llamamos nuestro widget del titulo de la aplicacion.
           AppIcon(),
-          SizedBox(height: 48.0,),
+          SizedBox(height: 38.0,),
           AppTextField(inputText: "Ingrece su correo", obscureText: false, onChanged: (value){ _email = value; },),
           SizedBox(height: 8.0,),
           AppTextField(inputText: "Ingresar contraseña", obscureText: true, onChanged: (value){ _password = value; },),
           SizedBox(height: 23.0,),
           //Llamamos a nuestro button y enviamos sus especificaciones
-          AppButton(color: Colors.blueAccent, onPressed: (){
-            try{
+          AppButton(color: Colors.blueAccent, onPressed: () async{
                 //Enviamos el email y el password a firebase Auth
-              var newUser = auth.createUserWithEmailAndPassword(email: _email, password: _password);
+              var newUser = await Autentication().createUser(email: _email, password: _password);
               //Verificamos que no sea nulo y si es correcto lo re dericcionamos
               if(newUser != null){
                 Navigator.pushNamed(context, '/chat');
-              }  
-            }catch(e){
-              print(e);
-            }    
+              }    
           }, name: "Registrarse")
         ]
       )

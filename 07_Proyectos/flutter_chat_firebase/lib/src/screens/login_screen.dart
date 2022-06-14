@@ -20,7 +20,7 @@ class _loginState extends State<login> {
   Widget build(BuildContext context) {
    return Scaffold(
     body: Container(
-       padding: EdgeInsets.symmetric(horizontal: 25.0),
+      padding: EdgeInsets.symmetric(horizontal: 24.0),
       child: Column(
          //Cntrar y ocupar todo el ancho de la pantalla
         mainAxisAlignment: MainAxisAlignment.center,
@@ -29,7 +29,7 @@ class _loginState extends State<login> {
         children: <Widget>[
           //Llamamos nuestro widget del titulo de la aplicacion.
           AppIcon(),
-          SizedBox(height: 48.0,),
+          SizedBox(height: 38.0,),
           AppTextField(inputText: "Ingrece su correo", obscureText: false, onChanged: (value){ _email = value; },),
           SizedBox(height: 8.0,),
           AppTextField(inputText: "Ingresar contraseña", obscureText: true, onChanged: (value){ _password = value; },),

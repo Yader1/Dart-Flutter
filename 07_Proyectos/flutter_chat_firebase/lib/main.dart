@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget{
       //Dejamos definido el tema de la aplicacion
       theme: ThemeData(
         textTheme: TextTheme(
-          bodyText1: TextStyle(color: Colors.black54), 
+          bodyText1: TextStyle(color: Colors.black45), 
         ),
       ),
       //Definir pagina principal
