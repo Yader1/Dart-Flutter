@@ -16,6 +16,10 @@ class _RegistroState extends State<Registro> {
   late String _email;
   late String _password;
 
+  //Controladores del TextField
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
    return Scaffold(
@@ -30,9 +34,9 @@ class _RegistroState extends State<Registro> {
           //Llamamos nuestro widget del titulo de la aplicacion.
           AppIcon(),
           SizedBox(height: 38.0,),
-          AppTextField(inputText: "Ingrece su correo", obscureText: false, onChanged: (value){ _email = value; },),
+          AppTextField(controller: emailController,inputText: "Ingrece su correo", obscureText: false, onChanged: (value){ _email = value; },),
           SizedBox(height: 8.0,),
-          AppTextField(inputText: "Ingresar contraseña", obscureText: true, onChanged: (value){ _password = value; },),
+          AppTextField(controller: passwordController,inputText: "Ingresar contraseña", obscureText: true, onChanged: (value){ _password = value; },),
           SizedBox(height: 23.0,),
           //Llamamos a nuestro button y enviamos sus especificaciones
           AppButton(color: Colors.blueAccent, onPressed: () async{
@@ -41,7 +45,10 @@ class _RegistroState extends State<Registro> {
               //Verificamos que no sea nulo y si es correcto lo re dericcionamos
               if(newUser != null){
                 Navigator.pushNamed(context, '/chat');
-              }    
+              }
+              //Limpiamos los campos de TextFiel
+              emailController.text = "";
+              passwordController.text = "";
           }, name: "Registrarse")
         ]
       )

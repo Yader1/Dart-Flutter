@@ -6,12 +6,15 @@ class AppTextField extends StatelessWidget {
   final ValueChanged<String> onChanged;
   //Para passwordField
   final bool obscureText;
-  const AppTextField({required this.inputText, required this.onChanged, required this.obscureText});
+  //Control del textFiel
+  final TextEditingController controller;
+  const AppTextField({required this.inputText, required this.onChanged, required this.obscureText, required this.controller});
 
  @override
  Widget build(BuildContext context) {
     //Widget de campo de datos
   return TextField(
+      controller: controller,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
         hintText: inputText,

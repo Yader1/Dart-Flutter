@@ -15,6 +15,10 @@ class _loginState extends State<login> {
   //Variables internas, se hace con guio bajo
   late String _email;
   late String _password;
+
+  //Controladores del TextField
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   
   @override
   Widget build(BuildContext context) {
@@ -30,9 +34,9 @@ class _loginState extends State<login> {
           //Llamamos nuestro widget del titulo de la aplicacion.
           AppIcon(),
           SizedBox(height: 38.0,),
-          AppTextField(inputText: "Ingrece su correo", obscureText: false, onChanged: (value){ _email = value; },),
+          AppTextField(controller: emailController, inputText: "Ingrece su correo", obscureText: false, onChanged: (value){ _email = value; },),
           SizedBox(height: 8.0,),
-          AppTextField(inputText: "Ingresar contraseña", obscureText: true, onChanged: (value){ _password = value; },),
+          AppTextField(controller: passwordController, inputText: "Ingresar contraseña", obscureText: true, onChanged: (value){ _password = value; },),
           SizedBox(height: 23.0,),
           //Llamamos a nuestro button y enviamos sus especificaciones
           AppButton(
@@ -41,7 +45,9 @@ class _loginState extends State<login> {
               var user = await Autentication().loginUser(email: _email, password: _password);
               if(user != null){
                 Navigator.pushNamed(context, '/chat');
-              } 
+              }
+              emailController.text = "";
+              passwordController.text = ""; 
             },
              name: "Lon in")
         ]
