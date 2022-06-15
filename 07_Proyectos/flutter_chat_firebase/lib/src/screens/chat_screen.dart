@@ -29,7 +29,17 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
    return new Scaffold(
-     appBar: AppBar(title:Text("Chat Flutter"))
+     appBar: AppBar(title:Text("Chat Flutter"),
+     actions: <Widget>[
+      //Button para des logger
+      IconButton(
+        icon: Icon(Icons.power_settings_new),
+        onPressed: (){
+          Autentication().singOut();
+          Navigator.pop(context);
+        }
+      )
+     ],),
    );
   }
 }
