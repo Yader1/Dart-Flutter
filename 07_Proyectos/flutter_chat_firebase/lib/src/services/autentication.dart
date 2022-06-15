@@ -24,4 +24,16 @@ class Autentication{
 
     return null; 
   }
+
+  //Login user
+  Future<UserCredential?> loginUser({String email="", String password=""}) async{
+    try{
+    //Enviamos el email y el password a firebase Auth
+      return await _auth.signInWithEmailAndPassword(email: email, password: password);  
+    }catch(e){
+      print(e);
+    } 
+
+    return null; 
+  }
 }

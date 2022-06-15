@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_chat_firebase/src/services/autentication.dart';
 import 'package:flutter_chat_firebase/src/widgets/app_button.dart';
 import 'package:flutter_chat_firebase/src/widgets/app_textfield.dart';
 
@@ -11,7 +12,6 @@ class login extends StatefulWidget {
   _loginState createState() => new _loginState();
  }
 class _loginState extends State<login> {
-
   //Variables internas, se hace con guio bajo
   late String _email;
   late String _password;
@@ -35,7 +35,15 @@ class _loginState extends State<login> {
           AppTextField(inputText: "Ingresar contraseña", obscureText: true, onChanged: (value){ _password = value; },),
           SizedBox(height: 23.0,),
           //Llamamos a nuestro button y enviamos sus especificaciones
-          AppButton(color: Colors.blueAccent, onPressed: (){ }, name: "Lon in")
+          AppButton(
+            color: Colors.blueAccent, 
+            onPressed: () async{
+              var user = await Autentication().loginUser(email: _email, password: _password);
+              if(user != null){
+                Navigator.pushNamed(context, '/chat');
+              } 
+            },
+             name: "Lon in")
         ]
       )
     )
