@@ -24,6 +24,9 @@ class _loginState extends State<login> {
 
   //Focus
   late FocusNode _focusNode;
+
+  //key
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>(); 
   @override
   void initState(){
     super.initState();
@@ -50,7 +53,9 @@ class _loginState extends State<login> {
    return Scaffold(
     body: ModalProgressHUD(
       inAsyncCall: showSpinner,
-      child: Container(
+      child: Form(
+        key: _formKey,
+        child:Container(
         padding: EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
            //Cntrar y ocupar todo el ancho de la pantalla
@@ -61,30 +66,55 @@ class _loginState extends State<login> {
           //Llamamos nuestro widget del titulo de la aplicacion.
             AppIcon(),
             SizedBox(height: 38.0,),
-            AppTextField(focusNode: _focusNode, controller: _emailController, inputText: "Ingrece su correo", obscureText: false, onChanged: (value){ _email = value; },),
+            _emailField(),
             SizedBox(height: 8.0,),
-            AppTextField(controller: _passwordController, inputText: "Ingresar contraseña", obscureText: true, onChanged: (value){ _password = value; },),
+            _passwordField(),
             SizedBox(height: 23.0,),
-            //Llamamos a nuestro button y enviamos sus especificaciones
-            AppButton(
-              color: Colors.blueAccent, 
-              onPressed: () async{
-                setSpinnerStatus(true);
-                var user = await Autentication().loginUser(email: _email, password: _password);
-                if(user != null){
-                  Navigator.pushNamed(context, '/chat');
-                }
-                //Enviamos el focus
-                FocusScope.of(context).requestFocus(_focusNode);
-                _emailController.text = "";
-                _passwordController.text = ""; 
-                setSpinnerStatus(false);
-              },
-             name: "Lon in")
+            _submitButton(),
           ]
         )
-      ),
+      ),),
     ),
    );
+  }
+
+  Widget _emailField(){
+    return AppTextField(
+      focusNode: _focusNode, 
+      controller: _emailController, 
+      inputText: "Ingrece su correo", 
+      obscureText: false, 
+      onSaved: (value){ _email = value; },
+    );
+  }
+
+  Widget _passwordField(){
+    return AppTextField(
+      controller: _passwordController, 
+      inputText: "Ingresar contraseña", 
+      obscureText: true, 
+      onSaved: (value){ _password = value; },
+    );
+  }
+
+  Widget _submitButton(){
+    //Llamamos a nuestro button y enviamos sus especificaciones
+    return AppButton(
+      color: Colors.blueAccent, 
+      onPressed: () async{
+        if(_formKey.currentState.validate()){
+          setSpinnerStatus(true);
+          var user = await Autentication().loginUser(email: _email, password: _password);
+          if(user != null){
+            Navigator.pushNamed(context, '/chat');
+          }
+          //Enviamos el focus
+          FocusScope.of(context).requestFocus(_focusNode);
+          _emailController.text = "";
+          _passwordController.text = ""; 
+          setSpinnerStatus(false);
+        }          
+      },
+      name: "Lon in");
   }
 }

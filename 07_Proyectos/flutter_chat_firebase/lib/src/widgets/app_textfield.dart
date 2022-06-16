@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class AppTextField extends StatelessWidget {
   final String inputText;
   //Variable que recibe los datos que el usuario envia
-  final ValueChanged<String> onChanged;
+  final ValueChanged<String?> onSaved;
   //Para passwordField
   final bool obscureText;
   //Control del textFiel
@@ -11,12 +11,12 @@ class AppTextField extends StatelessWidget {
   //Denir donde se ubicara el focus
   late FocusNode? focusNode;
 
-  AppTextField({required this.inputText, required this.onChanged, required this.obscureText, required this.controller, this.focusNode});
+  AppTextField({required this.inputText, required this.onSaved, required this.obscureText, required this.controller, this.focusNode});
 
  @override
  Widget build(BuildContext context) {
     //Widget de campo de datos
-  return TextField(
+  return TextFormField(
       focusNode: focusNode,
       controller: controller,
       decoration: InputDecoration(
@@ -32,7 +32,7 @@ class AppTextField extends StatelessWidget {
           borderSide: BorderSide(color: Colors.lightBlueAccent, width: 2),
         ),
       ),
-      onChanged: onChanged,
+      onSaved: onSaved,
       //Poner los textos de campo en el centro
       textAlign: TextAlign.center,
       //Para password, dejarlo oculto la contraseña
