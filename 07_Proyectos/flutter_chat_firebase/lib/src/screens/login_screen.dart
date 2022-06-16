@@ -17,8 +17,22 @@ class _loginState extends State<login> {
   late String _password;
 
   //Controladores del TextField
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+
+  //Focus
+  late FocusNode _focusNode;
+  @override
+  void initState(){
+    super.initState();
+    _focusNode = FocusNode();
+  }
+  //Liberamos el widget que no se este utilizando
+  @override
+  void dispose(){
+    super.dispose();
+    _focusNode.dispose();
+  }
   
   @override
   Widget build(BuildContext context) {
@@ -34,9 +48,9 @@ class _loginState extends State<login> {
           //Llamamos nuestro widget del titulo de la aplicacion.
           AppIcon(),
           SizedBox(height: 38.0,),
-          AppTextField(controller: emailController, inputText: "Ingrece su correo", obscureText: false, onChanged: (value){ _email = value; },),
+          AppTextField(focusNode: _focusNode, controller: _emailController, inputText: "Ingrece su correo", obscureText: false, onChanged: (value){ _email = value; },),
           SizedBox(height: 8.0,),
-          AppTextField(controller: passwordController, inputText: "Ingresar contraseña", obscureText: true, onChanged: (value){ _password = value; },),
+          AppTextField(controller: _passwordController, inputText: "Ingresar contraseña", obscureText: true, onChanged: (value){ _password = value; },),
           SizedBox(height: 23.0,),
           //Llamamos a nuestro button y enviamos sus especificaciones
           AppButton(
@@ -46,8 +60,10 @@ class _loginState extends State<login> {
               if(user != null){
                 Navigator.pushNamed(context, '/chat');
               }
-              emailController.text = "";
-              passwordController.text = ""; 
+               //Enviamos el focus
+              FocusScope.of(context).requestFocus(_focusNode);
+              _emailController.text = "";
+              _passwordController.text = ""; 
             },
              name: "Lon in")
         ]

@@ -8,12 +8,16 @@ class AppTextField extends StatelessWidget {
   final bool obscureText;
   //Control del textFiel
   final TextEditingController controller;
-  const AppTextField({required this.inputText, required this.onChanged, required this.obscureText, required this.controller});
+  //Denir donde se ubicara el focus
+  late FocusNode? focusNode;
+
+  AppTextField({required this.inputText, required this.onChanged, required this.obscureText, required this.controller, this.focusNode});
 
  @override
  Widget build(BuildContext context) {
     //Widget de campo de datos
   return TextField(
+      focusNode: focusNode,
       controller: controller,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
