@@ -26,12 +26,16 @@ class _RegistroState extends State<Registro> {
   void initState(){
     super.initState();
     _focusNode = FocusNode();
+    _emailController = TextEditingController();
+    _passwordController = TextEditingController();
   }
   //Liberamos el widget que no se este utilizando
   @override
   void dispose(){
     super.dispose();
     _focusNode.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
   }
 
   @override
