@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_chat_firebase/src/mixins/validation_mixins.dart';
 import 'package:flutter_chat_firebase/src/services/autentication.dart';
 import 'package:flutter_chat_firebase/src/widgets/app_button.dart';
 import 'package:flutter_chat_firebase/src/widgets/app_icon.dart';
@@ -11,11 +12,7 @@ class login extends StatefulWidget {
   @override
   _loginState createState() => new _loginState();
  }
-class _loginState extends State<login> {
-  //Variables internas, se hace con guio bajo
-  late String _email;
-  late String _password;
-
+class _loginState extends State<login> with ValidationMixins{
   bool showSpinner = false;
 
   //Controladores del TextField
@@ -82,18 +79,20 @@ class _loginState extends State<login> {
     return AppTextField(
       focusNode: _focusNode, 
       controller: _emailController, 
+      validator: validateEmail,
       inputText: "Ingrece su correo", 
       obscureText: false, 
-      onSaved: (value){ _email = value; },
+      onSaved: (value){  },
     );
   }
 
   Widget _passwordField(){
     return AppTextField(
-      controller: _passwordController, 
+      controller: _passwordController,
+      validator: validatePassword,
       inputText: "Ingresar contraseña", 
       obscureText: true, 
-      onSaved: (value){ _password = value; },
+      onSaved: (value){  },
     );
   }
 
@@ -102,9 +101,9 @@ class _loginState extends State<login> {
     return AppButton(
       color: Colors.blueAccent, 
       onPressed: () async{
-        if(_formKey.currentState.validate()){
+        if(_formKey.currentState!.validate()){
           setSpinnerStatus(true);
-          var user = await Autentication().loginUser(email: _email, password: _password);
+          var user = await Autentication().loginUser(email: _emailController.text, password: _passwordController.text);
           if(user != null){
             Navigator.pushNamed(context, '/chat');
           }

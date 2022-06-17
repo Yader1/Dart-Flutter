@@ -10,13 +10,16 @@ class AppTextField extends StatelessWidget {
   final TextEditingController controller;
   //Denir donde se ubicara el focus
   late FocusNode? focusNode;
+  //Validar el texto
+  final FormFieldValidator<String?> validator;
 
-  AppTextField({required this.inputText, required this.onSaved, required this.obscureText, required this.controller, this.focusNode});
+  AppTextField({required this.inputText, required this.onSaved, required this.obscureText, required this.controller, this.focusNode, required this.validator});
 
  @override
  Widget build(BuildContext context) {
     //Widget de campo de datos
   return TextFormField(
+      validator: validator,
       focusNode: focusNode,
       controller: controller,
       decoration: InputDecoration(
