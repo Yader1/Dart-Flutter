@@ -22,6 +22,9 @@ class _loginState extends State<login> with ValidationMixins{
   //Focus
   late FocusNode _focusNode;
 
+  //Autovalidar
+  bool _autoValidate = false;
+
   //key
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>(); 
   @override
@@ -77,7 +80,8 @@ class _loginState extends State<login> with ValidationMixins{
 
   Widget _emailField(){
     return AppTextField(
-      focusNode: _focusNode, 
+      focusNode: _focusNode,
+      autoValidate: _autoValidate,
       controller: _emailController, 
       validator: validateEmail,
       inputText: "Ingrece su correo", 
@@ -89,6 +93,7 @@ class _loginState extends State<login> with ValidationMixins{
   Widget _passwordField(){
     return AppTextField(
       controller: _passwordController,
+      autoValidate: _autoValidate,
       validator: validatePassword,
       inputText: "Ingresar contraseña", 
       obscureText: true, 
@@ -112,7 +117,9 @@ class _loginState extends State<login> with ValidationMixins{
           _emailController.text = "";
           _passwordController.text = ""; 
           setSpinnerStatus(false);
-        }          
+        }else{
+          setState(() => _autoValidate = true );
+        }        
       },
       name: "Lon in");
   }

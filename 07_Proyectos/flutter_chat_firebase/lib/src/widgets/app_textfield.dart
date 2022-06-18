@@ -12,13 +12,16 @@ class AppTextField extends StatelessWidget {
   late FocusNode? focusNode;
   //Validar el texto
   final FormFieldValidator<String?> validator;
+  //Para autovalidar en textField
+  late bool? autoValidate;
 
-  AppTextField({required this.inputText, required this.onSaved, required this.obscureText, required this.controller, this.focusNode, required this.validator});
+  AppTextField({required this.inputText, required this.onSaved, required this.obscureText, required this.controller, this.focusNode, required this.validator, this.autoValidate });
 
  @override
  Widget build(BuildContext context) {
     //Widget de campo de datos
   return TextFormField(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: validator,
       focusNode: focusNode,
       controller: controller,

@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_chat_firebase/src/mixins/validation_mixins.dart';
 import 'package:flutter_chat_firebase/src/services/autentication.dart';
 import 'package:flutter_chat_firebase/src/widgets/app_button.dart';
 import 'package:flutter_chat_firebase/src/widgets/app_icon.dart';
 import 'package:flutter_chat_firebase/src/widgets/app_textfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class Registro extends StatefulWidget {
+class Registro extends StatefulWidget{
   static const String routeName = '/registro';
   @override
   _RegistroState createState() => new _RegistroState();
  }
  
-class _RegistroState extends State<Registro> {
+class _RegistroState extends State<Registro> with ValidationMixins {
   //Variables internas, se hace con guio bajo
   late String _email;
   late String _password;
@@ -53,6 +54,7 @@ class _RegistroState extends State<Registro> {
           AppIcon(),
           SizedBox(height: 38.0,),
           AppTextField(
+            validator: validateEmail,
             focusNode: _focusNode, 
             controller: _emailController,
             inputText: "Ingrece su correo", 
@@ -60,6 +62,7 @@ class _RegistroState extends State<Registro> {
             onSaved: (value){ _email = value!; },),
           SizedBox(height: 8.0,),
           AppTextField(
+             validator: validatePassword,
             controller: _passwordController,
             inputText: "Ingresar contraseña", 
             obscureText: true, 
