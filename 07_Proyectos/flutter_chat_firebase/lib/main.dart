@@ -10,7 +10,7 @@ import 'package:flutter_chat_firebase/src/screens/welcome_screen.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-     options: DefaultFirebaseOptions.currentPlatform,
+    options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(MyApp());
 }
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget{
       //Dejamos definido el tema de la aplicacion
       theme: ThemeData(
         textTheme: TextTheme(
-          bodyText1: TextStyle(color: Colors.black54), 
+          bodyText1: TextStyle(color: Colors.black45), 
         ),
       ),
       //Definir pagina principal

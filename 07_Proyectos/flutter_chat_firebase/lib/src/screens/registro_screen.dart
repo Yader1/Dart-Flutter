@@ -1,22 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_chat_firebase/src/mixins/validation_mixins.dart';
+import 'package:flutter_chat_firebase/src/services/autentication.dart';
 import 'package:flutter_chat_firebase/src/widgets/app_button.dart';
 import 'package:flutter_chat_firebase/src/widgets/app_icon.dart';
 import 'package:flutter_chat_firebase/src/widgets/app_textfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class Registro extends StatefulWidget {
+class Registro extends StatefulWidget{
   static const String routeName = '/registro';
   @override
   _RegistroState createState() => new _RegistroState();
  }
  
-class _RegistroState extends State<Registro> {
-
-  //Instanciamos el servicio Auth
-  final auth = FirebaseAuth.instance;
+class _RegistroState extends State<Registro> with ValidationMixins {
   //Variables internas, se hace con guio bajo
   late String _email;
   late String _password;
+
+  //Controladores del TextField
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+
+  //Focus
+  late FocusNode _focusNode;
+  @override
+  void initState(){
+    super.initState();
+    _focusNode = FocusNode();
+    _emailController = TextEditingController();
+    _passwordController = TextEditingController();
+  }
+  //Liberamos el widget que no se este utilizando
+  @override
+  void dispose(){
+    super.dispose();
+    _focusNode.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,23 +52,35 @@ class _RegistroState extends State<Registro> {
         children: <Widget>[
           //Llamamos nuestro widget del titulo de la aplicacion.
           AppIcon(),
-          SizedBox(height: 48.0,),
-          AppTextField(inputText: "Ingrece su correo", obscureText: false, onChanged: (value){ _email = value; },),
+          SizedBox(height: 38.0,),
+          AppTextField(
+            validator: validateEmail,
+            focusNode: _focusNode, 
+            controller: _emailController,
+            inputText: "Ingrece su correo", 
+            obscureText: false, 
+            onSaved: (value){ _email = value!; },),
           SizedBox(height: 8.0,),
-          AppTextField(inputText: "Ingresar contraseña", obscureText: true, onChanged: (value){ _password = value; },),
+          AppTextField(
+             validator: validatePassword,
+            controller: _passwordController,
+            inputText: "Ingresar contraseña", 
+            obscureText: true, 
+            onSaved: (value){ _password = value!; },),
           SizedBox(height: 23.0,),
           //Llamamos a nuestro button y enviamos sus especificaciones
-          AppButton(color: Colors.blueAccent, onPressed: (){
-            try{
+          AppButton(color: Colors.blueAccent, onPressed: () async{
                 //Enviamos el email y el password a firebase Auth
-              var newUser = auth.createUserWithEmailAndPassword(email: _email, password: _password);
+              var newUser = await Autentication().createUser(email: _email, password: _password);
               //Verificamos que no sea nulo y si es correcto lo re dericcionamos
               if(newUser != null){
                 Navigator.pushNamed(context, '/chat');
-              }  
-            }catch(e){
-              print(e);
-            }    
+              }
+              //Enviamos el focus
+              FocusScope.of(context).requestFocus(_focusNode);
+              //Limpiamos los campos de TextFiel
+              _emailController.text = "";
+              _passwordController.text = "";
           }, name: "Registrarse")
         ]
       )
