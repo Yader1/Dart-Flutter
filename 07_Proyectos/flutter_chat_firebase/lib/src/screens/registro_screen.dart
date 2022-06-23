@@ -13,13 +13,15 @@ class Registro extends StatefulWidget{
  }
  
 class _RegistroState extends State<Registro> with ValidationMixins {
-  //Variables internas, se hace con guio bajo
-  late String _email;
-  late String _password;
+  //key
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>(); 
 
   //Controladores del TextField
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
+
+  //Autovalidar
+  bool _autoValidate = false;
 
   //Focus
   late FocusNode _focusNode;
@@ -42,49 +44,71 @@ class _RegistroState extends State<Registro> with ValidationMixins {
   @override
   Widget build(BuildContext context) {
    return Scaffold(
-    body: Container(
-       padding: EdgeInsets.symmetric(horizontal: 25.0),
-      child: Column(
-         //Cntrar y ocupar todo el ancho de la pantalla
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+    body: Form(
+      key: _formKey,
+      child:Container(
+        padding: EdgeInsets.symmetric(horizontal: 25.0),
+        child: Column(
+          //Cntrar y ocupar todo el ancho de la pantalla
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
 
-        children: <Widget>[
-          //Llamamos nuestro widget del titulo de la aplicacion.
-          AppIcon(),
-          SizedBox(height: 38.0,),
-          AppTextField(
-            validator: validateEmail,
-            focusNode: _focusNode, 
-            controller: _emailController,
-            inputText: "Ingrece su correo", 
-            obscureText: false, 
-            onSaved: (value){ _email = value!; },),
-          SizedBox(height: 8.0,),
-          AppTextField(
-             validator: validatePassword,
-            controller: _passwordController,
-            inputText: "Ingresar contraseña", 
-            obscureText: true, 
-            onSaved: (value){ _password = value!; },),
-          SizedBox(height: 23.0,),
-          //Llamamos a nuestro button y enviamos sus especificaciones
-          AppButton(color: Colors.blueAccent, onPressed: () async{
-                //Enviamos el email y el password a firebase Auth
-              var newUser = await Autentication().createUser(email: _email, password: _password);
-              //Verificamos que no sea nulo y si es correcto lo re dericcionamos
-              if(newUser != null){
-                Navigator.pushNamed(context, '/chat');
-              }
-              //Enviamos el focus
-              FocusScope.of(context).requestFocus(_focusNode);
-              //Limpiamos los campos de TextFiel
-              _emailController.text = "";
-              _passwordController.text = "";
-          }, name: "Registrarse")
-        ]
+          children: <Widget>[
+            //Llamamos nuestro widget del titulo de la aplicacion.
+            AppIcon(),
+            SizedBox(height: 38.0,),
+            _emailField(),
+            SizedBox(height: 8.0,),
+            _passwordField(),
+            SizedBox(height: 23.0,),
+            //Llamamos a nuestro button y enviamos sus especificaciones
+            _submitButton(),
+          ]
+        )
       )
-    )
+    ),
    );
+  }
+
+   Widget _emailField(){
+    return AppTextField(
+      validator: validateEmail,
+      autoValidate: _autoValidate,
+      focusNode: _focusNode, 
+      controller: _emailController,
+      inputText: "Ingrece su correo", 
+      obscureText: false, 
+      onSaved: (value){},
+    );
+   }
+
+   Widget _passwordField(){
+    return AppTextField(
+      validator: validatePassword,
+      autoValidate: _autoValidate,
+      controller: _passwordController,
+      inputText: "Ingresar contraseña", 
+      obscureText: true, 
+      onSaved: (value){},
+    );
+   }
+   Widget _submitButton(){
+    return AppButton(color: Colors.blueAccent, onPressed: () async{
+      if(_formKey.currentState!.validate()){
+        //Enviamos el email y el password a firebase Auth
+        var newUser = await Autentication().createUser(email: _emailController.text, password: _passwordController.text);
+        //Verificamos que no sea nulo y si es correcto lo re dericcionamos
+        if(newUser != null){
+          Navigator.pushNamed(context, '/chat');
+        }
+        //Limpiamos los campos de TextFiel
+        _emailController.text = "";
+        _passwordController.text = "";
+        //Enviamos el focus
+        FocusScope.of(context).requestFocus(_focusNode);
+      }else{
+        setState(() => _autoValidate = true );
+      }
+    }, name: "Registrarse");
   }
 }
