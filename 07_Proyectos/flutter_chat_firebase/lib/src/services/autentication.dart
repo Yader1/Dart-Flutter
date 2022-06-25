@@ -44,7 +44,9 @@ class Autentication {
         authRequest.success = true;
       }
     } catch (e) {
-      _mapErrorMessage(authRequest, e.hashCode.toString());
+      //Revisar code
+      _mapErrorMessage(authRequest, e.toString());
+      print("Error ${e}");
     }
 
     return authRequest;
