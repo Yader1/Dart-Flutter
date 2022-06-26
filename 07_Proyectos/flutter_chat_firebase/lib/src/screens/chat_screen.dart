@@ -45,6 +45,13 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
+  void _getMessage() async {
+    final messages = await MessageService().getMessage();
+    for (var message in messages.docs) {
+      print(message.data);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -75,7 +82,8 @@ class _ChatScreenState extends State<ChatScreen> {
                   FlatButton(
                     onPressed: () {
                       MessageService().save(
-                          collectionName: "message", collectionValues: {
+                          collectionName: "message",
+                          collectionValues: {
                             'value': _messageController.text,
                             'sender': loggedInUser.email
                           });

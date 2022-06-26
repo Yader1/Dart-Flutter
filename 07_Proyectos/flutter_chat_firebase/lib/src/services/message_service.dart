@@ -1,9 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-class MessageService{
+
+class MessageService {
   //Instanciamos fireStore
   final _fireStore = FirebaseFirestore.instance;
 
-  void save({String? collectionName, Map<String, dynamic>? collectionValues}){
-     _fireStore.collection(collectionName!).add(collectionValues!);
+  void save({String? collectionName, Map<String, dynamic>? collectionValues}) {
+    _fireStore.collection(collectionName!).add(collectionValues!);
+  }
+
+  Future<QuerySnapshot> getMessage() async {
+    return await _fireStore.collection("message").get();
   }
 }
