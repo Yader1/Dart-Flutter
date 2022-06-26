@@ -11,4 +11,8 @@ class MessageService {
   Future<QuerySnapshot> getMessage() async {
     return await _fireStore.collection("message").get();
   }
+
+  Stream<QuerySnapshot> getMessageStream(){
+    return _fireStore.collection("message").snapshots();
+  }
 }

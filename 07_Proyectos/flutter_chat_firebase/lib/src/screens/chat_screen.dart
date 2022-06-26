@@ -15,6 +15,7 @@ class _ChatScreenState extends State<ChatScreen> {
   void initState() {
     super.initState();
     getCurrentUser();
+    _getMessage();
   }
 
   TextEditingController _messageController = TextEditingController();
@@ -46,9 +47,10 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   void _getMessage() async {
-    final messages = await MessageService().getMessage();
-    for (var message in messages.docs) {
-      print(message.data);
+    await for (var snapshot in MessageService().getMessageStream()) {
+      for (var message in snapshot.docs) {
+        print(message.data());
+      }
     }
   }
 
