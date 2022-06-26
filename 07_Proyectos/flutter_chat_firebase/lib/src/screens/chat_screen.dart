@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_firebase/src/services/autentication.dart';
 
@@ -17,6 +17,10 @@ class _ChatScreenState extends State<ChatScreen> {
     getCurrentUser();
   }
 
+  //Instanciamos fireStore
+  final _fireStore = FirebaseFirestore.instance;
+  TextEditingController _messageController = TextEditingController();
+
   BoxDecoration _messageContainerDecoration = BoxDecoration(
       border: Border(
     top: BorderSide(color: Colors.lightBlueAccent, width: 2.0),
@@ -28,10 +32,9 @@ class _ChatScreenState extends State<ChatScreen> {
       border: InputBorder.none);
 
   TextStyle _sendButtonStyle = TextStyle(
-    color: Colors.lightBlueAccent,
-    fontWeight: FontWeight.bold,
-    fontSize: 18.0
-  );
+      color: Colors.lightBlueAccent,
+      fontWeight: FontWeight.bold,
+      fontSize: 18.0);
 
   //Optener datos del usuario de firebase
   final auth = FirebaseAuth.instance;
@@ -69,10 +72,13 @@ class _ChatScreenState extends State<ChatScreen> {
                   Expanded(
                       child: TextField(
                     decoration: _messageTextFieldDecoration,
+                    controller: _messageController,
                   )),
                   FlatButton(
                     onPressed: () {
-                      
+                      _fireStore
+                          .collection("messages")
+                          .add({'value': _messageController.text, 'sender': loggedInUser.email});
                     },
                     child: Text("Enviar", style: _sendButtonStyle),
                   )
