@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_firebase/src/services/autentication.dart';
+import 'package:flutter_chat_firebase/src/services/message_service.dart';
 
 class ChatScreen extends StatefulWidget {
   static const String routeName = '/chat';
@@ -17,8 +17,6 @@ class _ChatScreenState extends State<ChatScreen> {
     getCurrentUser();
   }
 
-  //Instanciamos fireStore
-  final _fireStore = FirebaseFirestore.instance;
   TextEditingController _messageController = TextEditingController();
 
   BoxDecoration _messageContainerDecoration = BoxDecoration(
@@ -76,9 +74,11 @@ class _ChatScreenState extends State<ChatScreen> {
                   )),
                   FlatButton(
                     onPressed: () {
-                      _fireStore
-                          .collection("messages")
-                          .add({'value': _messageController.text, 'sender': loggedInUser.email});
+                      MessageService().save(
+                          collectionName: "message", collectionValues: {
+                            'value': _messageController.text,
+                            'sender': loggedInUser.email
+                          });
                     },
                     child: Text("Enviar", style: _sendButtonStyle),
                   )
