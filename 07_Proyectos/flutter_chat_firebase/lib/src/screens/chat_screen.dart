@@ -20,17 +20,17 @@ class _ChatScreenState extends State<ChatScreen> {
 
   TextEditingController _messageController = TextEditingController();
 
-  BoxDecoration _messageContainerDecoration = BoxDecoration(
+  BoxDecoration _messageContainerDecoration = const BoxDecoration(
       border: Border(
     top: BorderSide(color: Colors.lightBlueAccent, width: 2.0),
   ));
 
-  InputDecoration _messageTextFieldDecoration = InputDecoration(
+  InputDecoration _messageTextFieldDecoration = const InputDecoration(
       contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
       hintText: 'Ingresar su mensaje aqui...',
       border: InputBorder.none);
 
-  TextStyle _sendButtonStyle = TextStyle(
+  TextStyle _sendButtonStyle = const TextStyle(
       color: Colors.lightBlueAccent,
       fontWeight: FontWeight.bold,
       fontSize: 18.0);
@@ -56,13 +56,14 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unnecessary_new
     return new Scaffold(
       appBar: AppBar(
-        title: Text("Chat Flutter"),
+        title: const Text("Chat Flutter"),
         actions: <Widget>[
           //Button para des logger
           IconButton(
-              icon: Icon(Icons.power_settings_new),
+              icon: const Icon(Icons.power_settings_new),
               onPressed: () {
                 Autentication().singOut();
                 Navigator.pop(context);
@@ -72,6 +73,25 @@ class _ChatScreenState extends State<ChatScreen> {
       body: SafeArea(
         child: Column(
           children: <Widget>[
+            StreamBuilder(
+                stream: MessageService().getMessageStream(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    var messages = snapshot.data.docs;
+                    List<ChatItem> chatItems = [];
+
+                    for (var message in messages) {
+                      final messageValue = message.data["values"];
+                      final messageSender = message.data["sender"];
+                      chatItems.add(ChatItem(
+                          message: messageValue, sender: messageSender));
+                    }
+                    return Flexible(
+                        child: ListView(
+                      children: chatItems,
+                    ));
+                  }
+                }),
             Container(
               decoration: _messageContainerDecoration,
               child: Row(
@@ -98,6 +118,38 @@ class _ChatScreenState extends State<ChatScreen> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class ChatItem extends StatelessWidget {
+  late final String? sender;
+  late final String? message;
+
+  ChatItem({this.sender, this.message});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(10.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: <Widget>[
+        Text(
+          sender!,
+          style: const TextStyle(fontSize: 15.0, color: Colors.black54),
+        ),
+        Material(
+          borderRadius: BorderRadius.circular(30.0),
+          color: Colors.lightBlueAccent,
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+            child:Text(message!,
+              style: TextStyle(fontSize: 16.0, color: Colors.white),
+            )
+          ),
+          )
+      ]),
     );
   }
 }
