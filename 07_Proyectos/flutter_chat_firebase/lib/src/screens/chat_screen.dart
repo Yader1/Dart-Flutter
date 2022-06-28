@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_firebase/src/services/autentication.dart';
@@ -75,20 +77,11 @@ class _ChatScreenState extends State<ChatScreen> {
           children: <Widget>[
             StreamBuilder(
                 stream: MessageService().getMessageStream(),
-                builder: (context, snapshot) {
+                builder: (context, snapshot){
                   if (snapshot.hasData) {
-                    var messages = snapshot.data.docs;
-                    List<ChatItem> chatItems = [];
-
-                    for (var message in messages) {
-                      final messageValue = message.data["values"];
-                      final messageSender = message.data["sender"];
-                      chatItems.add(ChatItem(
-                          message: messageValue, sender: messageSender));
-                    }
                     return Flexible(
-                        child: ListView(
-                      children: chatItems,
+                      child: ListView(
+                      children: _getChatItems(snapshot.data.documents),
                     ));
                   }
                 }),
@@ -109,6 +102,7 @@ class _ChatScreenState extends State<ChatScreen> {
                             'value': _messageController.text,
                             'sender': loggedInUser.email
                           });
+                       _messageController.clear();
                     },
                     child: Text("Enviar", style: _sendButtonStyle),
                   )
@@ -120,35 +114,57 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
     );
   }
+  List<ChatItem> _getChatItems(dynamic messages){
+    List<ChatItem> chatItems = [];
+    for (var message in messages) {
+      final messageValue = message.data["values"];
+      final messageSender = message.data["sender"];
+      chatItems.add(ChatItem(
+        message: messageValue,
+        sender: messageSender,
+        isLoggedInUser: messageSender == loggedInUser.email,
+      ));
+    }
+    return chatItems;
+  }
 }
 
 class ChatItem extends StatelessWidget {
-  late final String? sender;
-  late final String? message;
-
-  ChatItem({this.sender, this.message});
+  late final String sender;
+  late final String message;
+  late final bool isLoggedInUser;
+  ChatItem(
+      {required this.sender,
+      required this.message,
+      required this.isLoggedInUser});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(10.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: <Widget>[
+      child:
+          Column(crossAxisAlignment: CrossAxisAlignment.end, children: <Widget>[
         Text(
-          sender!,
+          sender,
           style: const TextStyle(fontSize: 15.0, color: Colors.black54),
         ),
         Material(
-          borderRadius: BorderRadius.circular(30.0),
-          color: Colors.lightBlueAccent,
-          child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-            child:Text(message!,
-              style: TextStyle(fontSize: 16.0, color: Colors.white),
-            )
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30.0),
+            bottomLeft: Radius.circular(30.0),
+            bottomRight: Radius.circular(30.0),
           ),
-          )
+          elevation: 6.0,
+          color: isLoggedInUser ? Colors.lightBlueAccent : Colors.white,
+          child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+              child: Text(
+                message,
+                style: TextStyle(
+                    fontSize: 16.0,
+                    color: isLoggedInUser ? Colors.white : Colors.black45),
+              )),
+        )
       ]),
     );
   }
