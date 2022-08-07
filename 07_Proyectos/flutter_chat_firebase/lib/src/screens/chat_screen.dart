@@ -1,5 +1,6 @@
 import 'dart:html';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_firebase/src/services/autentication.dart';
@@ -81,7 +82,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   if (snapshot.hasData) {
                     return Flexible(
                       child: ListView(
-                      children: _getChatItems(snapshot.data.documents),
+                      children: _getChatItems(snapshot.data.docs),
                     ));
                   }
                 }),
